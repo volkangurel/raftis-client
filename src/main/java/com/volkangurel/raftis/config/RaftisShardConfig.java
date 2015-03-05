@@ -1,9 +1,6 @@
 package com.volkangurel.raftis.config;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class RaftisShardConfig {
     private final List<RaftisShardHostConfig> hosts = new ArrayList<RaftisShardHostConfig>();
@@ -13,12 +10,17 @@ public class RaftisShardConfig {
     }
 
     public RaftisShardConfig addSlot(Integer slot) {
-        slots.add(slot);
+        this.slots.add(slot);
+        return this;
+    }
+
+    public RaftisShardConfig addSlots(Collection<Integer> slots) {
+        this.slots.addAll(slots);
         return this;
     }
 
     public RaftisShardConfig addShardHostConfig(RaftisShardHostConfig host) {
-        hosts.add(host);
+        this.hosts.add(host);
         return this;
     }
 
