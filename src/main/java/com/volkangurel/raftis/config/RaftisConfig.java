@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaftisConfig {
+    public static final int DEFAULT_RAFTIS_PORT = 8369;
+
     private volatile String localGroup;
     private volatile int numSlots;
     private final List<RaftisShardConfig> shards = new ArrayList<RaftisShardConfig>();
@@ -59,8 +61,17 @@ public class RaftisConfig {
             RaftisShardConfig shardConfig = new RaftisShardConfig();
             shardConfig.addSlots(jsonShardConfig.getSlots());
             for (RaftisJsonHostConfig jsonShardHostConfig: jsonShardConfig.getHosts()) {
+                String[] hostPort = jsonShardHostConfig.getRedisAddr().split(":", 2);
+                String host = hostPort[0];
+                int port;
+                if (hostPort.length > 1) {
+                    port = Integer.valueOf(hostPort[1]);
+                } else {
+                    port = DEFAULT_RAFTIS_PORT;
+                }
                 shardConfig.addShardHostConfig(new RaftisShardHostConfig
-                        .Builder(jsonShardHostConfig.getHost(), jsonShardHostConfig.getGroup())
+                        .Builder(host, jsonShardHostConfig.getGroup())
+                        .port(port)
                         .build());
             }
             config.addShardConfig(shardConfig);

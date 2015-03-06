@@ -1,6 +1,6 @@
 package com.volkangurel.raftis.config.json;
 
-public class RaftisJsonHostConfig {
+public class RaftisJsonMeConfig {
     private String redisAddr;
     private String flotillaAddr;
     private String group;
@@ -28,5 +28,4 @@ public class RaftisJsonHostConfig {
     public String getGroup() {
         return group;
     }
-
 }

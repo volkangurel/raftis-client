@@ -37,11 +37,19 @@ public class RaftisReplicaSetImpl extends RaftisReplicaSet {
 
     @Override
     RaftisPool getPoolForRead() {
-        return pools.get(raftisConfig.getLocalGroup());
+        RaftisPool pool = pools.get(raftisConfig.getLocalGroup());
+        if (pool == null) {
+            throw new RuntimeException("pool not found for local group " + raftisConfig.getLocalGroup());
+        }
+        return pool;
     }
 
     @Override
     RaftisPool getPoolForWrite() {
-        return pools.get(raftisConfig.getLocalGroup());
+        RaftisPool pool = pools.get(raftisConfig.getLocalGroup());
+        if (pool == null) {
+            throw new RuntimeException("pool not found for local group " + raftisConfig.getLocalGroup());
+        }
+        return pool;
     }
 }

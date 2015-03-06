@@ -14,7 +14,7 @@ public class RaftisShardHostConfig {
     public static final class Builder {
         private final String host;
         private final String group;
-        private int port = 6379;
+        private int port = RaftisConfig.DEFAULT_RAFTIS_PORT;
 
         public Builder(String host, String group) {
             this.host = host;
