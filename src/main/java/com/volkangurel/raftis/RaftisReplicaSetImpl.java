@@ -28,7 +28,7 @@ public class RaftisReplicaSetImpl extends RaftisReplicaSet {
 
         for (RaftisShardHostConfig host : config.getHosts()) {
             if (pools.containsKey(host.getGroup())) {
-                throw new RuntimeException("Duplicate group in replica set: " + host.getGroup());
+                throw new RuntimeException("Duplicate group in replica set: " + host.getGroup() + " config: " + config.toString());
             }
             pools.put(host.getGroup(),
                     new RaftisPool(jedisPoolConfig, host.getHost(), host.getPort(), poolConfig.getTimeout()));
