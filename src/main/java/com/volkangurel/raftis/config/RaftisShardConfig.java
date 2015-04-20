@@ -32,4 +32,11 @@ public class RaftisShardConfig {
         return slots;
     }
 
+    @Override
+    public String toString() {
+        return "RaftisShardConfig{" +
+                "hosts=" + hosts +
+                ", slots=" + slots +
+                '}';
+    }
 }

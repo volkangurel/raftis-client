@@ -11,6 +11,15 @@ public class RaftisShardHostConfig {
         this.group = group;
     }
 
+    @Override
+    public String toString() {
+        return "RaftisShardHostConfig{" +
+                "host='" + host + '\'' +
+                ", port=" + port +
+                ", group='" + group + '\'' +
+                '}';
+    }
+
     public static final class Builder {
         private final String host;
         private final String group;

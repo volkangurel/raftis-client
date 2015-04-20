@@ -8,6 +8,8 @@ import java.util.List;
 public class RaftisJsonConfig {
     private Integer numSlots;
     private List<RaftisJsonShardConfig> shards;
+
+    private String dataDir;
     private RaftisJsonMeConfig me;
 
     public void setNumSlots(Integer numSlots) {
@@ -32,6 +34,15 @@ public class RaftisJsonConfig {
 
     public RaftisJsonMeConfig getMe() {
         return me;
+    }
+
+
+    public String getDataDir() {
+        return dataDir;
+    }
+
+    public void setDataDir(String dataDir) {
+        this.dataDir = dataDir;
     }
 
 }
