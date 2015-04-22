@@ -47,6 +47,7 @@ public class RaftisConfig {
         return this.localGroup;
     }
 
+
     private static final ObjectMapper mapper = new ObjectMapper();
     public static RaftisConfig parseJSON(final String json) {
         RaftisJsonConfig jsonConfig;
@@ -57,6 +58,7 @@ public class RaftisConfig {
         }
         RaftisConfig config = new RaftisConfig();
         config.setNumSlots(jsonConfig.getNumSlots());
+        config.setLocalGroup(jsonConfig.getMe().getGroup());
         for (RaftisJsonShardConfig jsonShardConfig : jsonConfig.getShards()) {
             RaftisShardConfig shardConfig = new RaftisShardConfig();
             shardConfig.addSlots(jsonShardConfig.getSlots());

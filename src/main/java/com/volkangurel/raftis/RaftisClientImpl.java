@@ -105,6 +105,6 @@ public final class RaftisClientImpl extends RaftisClient {
         for (int i : bytes.array()) {
             sum = (sum * 17) + i;
         }
-        return sum % config.getNumSlots();
+        return Math.abs(sum) % config.getNumSlots();
     }
 }
