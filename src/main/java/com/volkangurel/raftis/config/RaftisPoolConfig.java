@@ -2,7 +2,7 @@ package com.volkangurel.raftis.config;
 
 
 public class RaftisPoolConfig {
-    private volatile int timeout = 1000;
+    private volatile int timeout = 5000;
     private volatile int maxIdle = 10;
 
     public RaftisPoolConfig setTimeout(int timeout) {

@@ -32,6 +32,7 @@ public class RaftisPoolFactory implements PooledObjectFactory<Jedis> {
     @Override
     public PooledObject<Jedis> makeObject() throws Exception {
         final Jedis jedis = new Jedis(this.host, this.port, this.timeout);
+        System.out.println("Instantiating new jedis connection to " + this.host + ":" + this.port);
         jedis.connect();
         connectionsCreated.incrementAndGet();
         return new DefaultPooledObject<Jedis>(jedis);
