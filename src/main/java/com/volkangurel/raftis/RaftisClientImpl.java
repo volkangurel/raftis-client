@@ -108,12 +108,11 @@ public final class RaftisClientImpl extends RaftisClient {
 
     private int slotForKey(String key) {
         if (key == null) { return 0; }
-        ByteBuffer bytes = StandardCharsets.UTF_8.encode(key);
+        byte[] b = key.getBytes();
         int sum = 0;
-        for (int i : bytes.array()) {
-            sum = (sum * 17) + i;
+        for (byte i : b) {
+            sum = (sum * 17) + (byte)i;
         }
-        System.out.println("Got hash " + Math.abs(sum) + " for key " + key);
         return Math.abs(sum) % config.getNumSlots();
     }
 }
