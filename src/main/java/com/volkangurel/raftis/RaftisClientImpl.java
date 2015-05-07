@@ -99,9 +99,7 @@ public final class RaftisClientImpl extends RaftisClient {
     @Override
     protected RaftisReplicaSet getReplicaSet(String key) {
         int slot = slotForKey(key);
-        System.out.println("Got slot " + slot + " for key " + key);
         RaftisReplicaSet ret = slotReplicaSets.get(slot);
-        System.out.println("Replicas for slot: " + ret);
         return ret;
 
     }
