@@ -27,6 +27,7 @@ public final class RaftisClientImpl extends RaftisClient {
         for (RaftisShardConfig shardConfig : config.getShards()) {
             RaftisReplicaSetImpl replicaSet = new RaftisReplicaSetImpl(shardConfig, config, poolConfig);
             for (Integer slot : shardConfig.getSlots()) {
+                System.err.println("Storing set " + replicaSet + " for slot " + slot);
                 slotReplicaSets.put(slot, replicaSet);
             }
         }
@@ -63,7 +64,9 @@ public final class RaftisClientImpl extends RaftisClient {
                 try {
                     jedis = pool.getResource();
                     String json = jedis.configGet("cluster").get(1);
+                    System.err.println("Got cluster json " + json + " from seed " + seed.getHost() + ":" + seed.getPort());
                     RaftisConfig config = RaftisConfig.parseJSON(json);
+                    System.err.println("Parsed config " + config.toString());
                     config.setLocalGroup(localGroup);
                     pool.returnResource(jedis);
                     pool.destroy();
@@ -96,14 +99,17 @@ public final class RaftisClientImpl extends RaftisClient {
     @Override
     protected RaftisReplicaSet getReplicaSet(String key) {
         int slot = slotForKey(key);
-        return slotReplicaSets.get(slot);
+        RaftisReplicaSet ret = slotReplicaSets.get(slot);
+        return ret;
+
     }
 
     private int slotForKey(String key) {
-        ByteBuffer bytes = StandardCharsets.UTF_8.encode(key);
+        if (key == null) { return 0; }
+        byte[] b = key.getBytes();
         int sum = 0;
-        for (int i : bytes.array()) {
-            sum = (sum * 17) + i;
+        for (byte i : b) {
+            sum = (sum * 17) + (byte)i;
         }
         return Math.abs(sum) % config.getNumSlots();
     }
